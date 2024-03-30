@@ -8,6 +8,7 @@
 #include <commctrl.h>
 #include <stdint.h>
 #include <intrin.h>
+#include <algorithm>
 
 #pragma comment(lib,"ComCtl32.lib")
 
@@ -856,8 +857,8 @@ static void OnActivationIdChange(HWND hDlg)
 		return ;
 	}
 	std::wstring wstr_removed_spaces = removeSpaces(wstr_id);
-	std::wstring formatedIID = splitString(wstr_removed_spaces, wstr_removed_spaces.length() / 9, L'-');
-
+	//std::wstring formatedIID = splitString(wstr_removed_spaces, wstr_removed_spaces.length() / 9, L'-');这段代码会引发问题，原因暂时不清楚，可能和分割有关
+	std::wstring formatedIID=wstr_removed_spaces ;//用这段代码代替上面的代码，问题解决
 	int err = generate(formatedIID.c_str(), confirmation_id);
 	const wchar_t* message = confirmation_id;
 	if (err) {
